@@ -1,50 +1,81 @@
-import { RouteComponentProps } from "react-router";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import novelService from "../../../services/novel.service";
+import INovel from '../../../types/chapter.type';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import React from "react";
 
-interface Novel {
-  id: number;
-  title: string;
-  author: string;
-}
 
-interface Chapter {
-  id: number;
-  title: string;
-}
 
-interface MatchParams {
-  id: string;
-}
 
-interface Props extends RouteComponentProps<MatchParams> {}
-
-const Novel: React.FC<Props> = ({ match }) => {
-  const [novel, setNovel] = useState<Novel>({ id: 0, title: "", author: "" });
-  const [chapters, setChapters] = useState<Chapter[]>([]);
+export function BoardNovel() {
+  const { slug } = useParams();
+  const [novel, setNovel] = useState({
+    "_id": null,
+    "author_id": null,
+    "datetime": "",
+    "title": "",
+    "description": ""
+  });
 
   useEffect(() => {
-    const getNovel = async () => {
-      const novelId = parseInt(match.params.id);
-      const novelResponse = await axios.get<Novel>(`/novels/${novelId}`);
-      setNovel(novelResponse.data);
-      const chapterResponse = await axios.get<Chapter[]>(`/chapters?novelId=${novelId}`);
-      setChapters(chapterResponse.data);
-    };
-    getNovel();
-  }, [match.params.id]);
+    // console.log("executed only once!");
+    if (typeof slug !== "undefined") {
+      novelService.get_novel(slug.split("_")[1]).then(
+        response => {
+          setNovel({
+            "_id": response.data._id,
+            "author_id": response.data.author_id,
+            "datetime": response.data.datetime,
+            "title": response.data.title,
+            "description": response.data.description
+          });
+        },
+        error => {
+        }
+      );
+    }
+  }, [slug]);
+
+  const submit = (e: {
+    target: any; preventDefault: () => void;
+  }) => {
+    e.preventDefault()
+    console.log(e.target.title.value, e.target.description.value)
+  }
 
   return (
-    <div>
-      <h1>{novel.title}</h1>
-      <p>{novel.author}</p>
-      <ul>
-        {chapters.map((chapter) => (
-          <li key={chapter.id}>{chapter.title}</li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+    <div className="container">
+      <h1 className="section-title text-left">Novelas</h1>
+      <header className="jumbotron">
+        <form onSubmit={submit}>
+          <div>
+            <div className="form-group">
+              <label htmlFor="title"> Title </label>
+              <input name="title" type="text" defaultValue={novel.title} className="form-control" />
+            </div>
 
-export default Novel;
+            <div className="form-group">
+              <textarea name="description" defaultValue={novel.description} ></textarea>
+            </div>
+
+            <div className="form-group">
+              <button type="submit" className="btn btn-primary btn-block">Enviar</button>
+            </div>
+          </div>
+        </form>
+      </header>
+
+      <Row xs={1} md={2} className="g-4">
+        {/* {novel.chapters.map(chapters => (
+            <p></p>
+          ))} */}
+        </Row>
+
+    </div >
+  );
+
+}
+
+
