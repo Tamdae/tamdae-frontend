@@ -1,11 +1,11 @@
 import { Component } from "react";
-
-import UserService from "../../services/user.service";
+import novelService from "../../services/novel.service";
+import INovel from '../../types/novel.type';
 
 type Props = {};
 
 type State = {
-  content: string;
+  content: INovel[];
 }
 
 export default class Home extends Component<Props, State> {
@@ -13,12 +13,12 @@ export default class Home extends Component<Props, State> {
     super(props);
 
     this.state = {
-      content: ""
+      content: []
     };
   }
 
   componentDidMount() {
-    UserService.getPublicContent().then(
+    novelService.getNovelsContent().then(
       response => {
         this.setState({
           content: response.data
@@ -39,7 +39,11 @@ export default class Home extends Component<Props, State> {
     return (
       <div className="container">
         <header className="jumbotron">
-          <h3>{this.state.content}</h3>
+        <h2>Home</h2>
+        {this.state.content.map(novel => (
+        <h3>{novel.title}</h3>
+      ))}
+          
         </header>
       </div>
     );

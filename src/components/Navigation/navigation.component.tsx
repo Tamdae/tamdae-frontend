@@ -1,10 +1,10 @@
 import { Component } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import AuthService from "../../services/auth.service";
 import IUser from '../../types/user.type';
 import EventBus from "../../common/EventBus";
+import { Nav, Navbar, NavLink } from "react-bootstrap";
 
 type Props = {};
 
@@ -56,71 +56,32 @@ class Navigation extends Component<Props, State> {
   render() {
     const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
     return (
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/"} className="navbar-brand">
-            Tamdae
-          </Link>
-          <div className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
-                Home
-              </Link>
-            </li>
-
-            {showModeratorBoard && (
-              <li className="nav-item">
-                <Link to={"/mod"} className="nav-link">
-                  Moderator Board
-                </Link>
-              </li>
-            )}
-
-            {showAdminBoard && (
-              <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
-                  Admin Board
-                </Link>
-              </li>
-            )}
-
-            {currentUser && (
-              <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  User
-                </Link>
-              </li>
-            )}
-          </div>
-
+      <Navbar fixed="top" collapseOnSelect expand="sm" bg="dark" variant="dark">
+        <Link to={"/"} className="navbar-brand">
+          Tamdae
+        </Link>
+        <Navbar.Toggle aria-controls="navbarScroll" data-bs-toggle="collapse" data-bs-target="#navbarScroll" />
+        <Navbar.Collapse id="navbarScroll">
+          <Nav className="me-auto my-2 my-lg-0">
+            <NavLink eventKey="1" as={Link} to={"/home"}>Inicio</NavLink>
+            <NavLink eventKey="2" as={Link} to={"/novels"}>Novelas</NavLink>
+          </Nav>
           {currentUser ? (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to={"/profile"} className="nav-link">
-                  {currentUser.username}
-                </Link>
-              </li>
-              <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={this.logOut}>
-                  LogOut
-                </a>
-              </li>
-            </div>
+            <Nav className="d-flex">
+              {showModeratorBoard && (<NavLink eventKey="1" as={Link} to={"/mod"}>Moderator Board</NavLink>)}
+              {showAdminBoard && (<NavLink eventKey="2" as={Link} to={"/admin"}>Admin Board</NavLink>)}
+              <NavLink eventKey="3" as={Link} to={"/my/novels"}>User</NavLink>
+              <NavLink eventKey="4" as={Link} to={"/profile"}>{currentUser.username}</NavLink>
+              <NavLink eventKey="5" onClick={this.logOut}>LogOut</NavLink>
+            </Nav>
           ) : (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
-                  Login
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link to={"/register"} className="nav-link">
-                  Sign Up
-                </Link>
-              </li>
-            </div>
-          )}
-        </nav>
+            <Nav className="d-flex">
+              <NavLink eventKey="1" as={Link} to={"/login"}>Login</NavLink>
+              <NavLink eventKey="2" as={Link} to={"/register"}>Sign Up</NavLink>
+            </Nav>
+          )};
+        </Navbar.Collapse>
+      </Navbar >
     );
   }
 }
