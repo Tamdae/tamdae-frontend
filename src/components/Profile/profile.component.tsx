@@ -47,7 +47,7 @@ export default class Profile extends Component<Props, State> {
             <p>
               <strong>Token:</strong>{" "}
               {currentUser.accessToken.substring(0, 20)} ...{" "}
-              {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
+              {currentUser.accessToken.slice(-20)}
             </p>
             <p>
               <strong>Id:</strong>{" "}
@@ -59,8 +59,7 @@ export default class Profile extends Component<Props, State> {
             </p>
             <strong>Authorities:</strong>
             <ul>
-              {currentUser.roles &&
-                currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
+            {currentUser.roles?.map((role) => <li key={role}>{role}</li>)}
             </ul>
           </div> : null}
       </div>

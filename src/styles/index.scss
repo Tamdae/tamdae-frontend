@@ -1,0 +1,345 @@
+* {
+  box-sizing: border-box;
+}
+
+li.active a {
+  font-weight: bold;
+}
+
+.logo {
+  max-height: 50px;
+}
+
+main.container-fluid {
+  margin-top: 76px;
+  padding: 0;
+}
+
+#carouselExampleIndicators .carousel-indicators {
+  margin-right: 0;
+  margin-left: 80%;
+  margin-bottom: 50px;
+  z-index: 999;
+}
+
+#carouselExampleIndicators .carousel-indicators li {
+  background-color: rgb(24, 115, 219);
+  width: 30px;
+  height: 7px;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  width: 50px;
+  height: 50px;
+}
+
+
+#multi-item-example .carousel-indicators li {
+  background-color: rgb(24, 115, 219);
+  width: 100px;
+  height: 120px;
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+#multi-item-example .carousel-indicators li.active {
+  border: 1px solid black;
+}
+
+#multi-item-example .carousel-indicators {
+  margin-right: 0;
+  margin-left: 0;
+  margin-bottom: 0;
+  z-index: 999;
+  position: relative;
+}
+
+#multi-item-example .card {
+  border: 0;
+}
+
+h1.section-title {
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 26px;
+  color: rgb(3, 89, 146);
+  padding: 10px 0;
+  border-bottom: 2px solid rgba(9, 99, 233, 0.1);
+}
+
+h1.section-title span.material-icons {
+  font-size: 26px;
+}
+
+h2.section-title {
+  font-weight: 400;
+  font-size: 23px;
+  line-height: 23px;
+  color: rgb(3, 89, 146);
+  padding: 10px 0;
+  border-bottom: 2px solid rgba(9, 99, 233, 0.1);
+}
+
+h2.section-title span.material-icons {
+  font-size: 23px;
+}
+
+h4.section-title {
+  font-weight: 400;
+  font-size: 20px;
+  color: rgb(3, 89, 146);
+  padding: 10px 0;
+  border-bottom: 2px solid rgba(9, 99, 233, 0.1);
+}
+
+h4.section-title span.material-icons {
+  font-size: 20px;
+}
+
+h5.novel-title {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+  color: rgb(3, 89, 146);
+  padding: 10px 0;
+}
+
+/*
+theme Light
+*/
+
+body[theme=light] #mainMenuBar .nav-link {
+  color: rgb(24, 115, 219) !important;
+}
+
+body[theme=light] #mainMenuBar .active .nav-link {
+  color: #131E2C !important;
+}
+
+body[theme=light] #mainMenuBar,
+body[theme=light] main[role="main"] {
+  background: #FFF;
+}
+
+body[theme=light] #carouselExampleIndicators .bottom-bg {
+  height: 142px;
+  width: 100%;
+  background: url(slider-bg-light.png) no-repeat 50%;
+  background-size: cover;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+}
+
+/*
+theme Dark
+*/
+
+body[theme=dark] #mainMenuBar .nav-link {
+  color: #626973 !important;
+}
+
+body[theme=dark] #mainMenuBar .active .nav-link {
+  color: rgb(24, 115, 219) !important;
+}
+
+body[theme=dark] #mainMenuBar,
+body[theme=dark] main[role="main"] {
+  background: #131E2C;
+}
+
+body[theme=dark] #carouselExampleIndicators .bottom-bg {
+  height: 142px;
+  width: 100%;
+  background: url(slider-bg-dark.png) no-repeat 50%;
+  background-size: cover;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+}
+
+
+.novel-section div img {
+  width: 100%;
+}
+
+.novel-section div {
+  overflow: hidden;
+}
+
+.top_novel {
+  width: 120%;
+  position: absolute;
+  top: 30px;
+  right: 10px;
+  font-size: 0.8em;
+  text-align: center;
+  padding: 10px;
+  background-color: rgb(24, 115, 219);
+  color: #FFF;
+  transform: rotate(-35deg);
+  /*-webkit-transform: rotate(-50deg);
+  -moz-transform: rotate(-50deg);
+  -o-transform: rotate(-50deg);*/
+}
+
+.flotable-label {
+  position: absolute;
+  top: 0;
+  right: 15px;
+  font-size: 0.8em;
+  border-radius: 0 0 0 0.25em;
+  -moz-border-radius: 0 0 0 0.25em;
+  -webkit-border-radius: 0 0 0 0.25em;
+  padding: 5px 10px;
+  background-color: rgb(24, 115, 219);
+  color: #FFF;
+}
+
+.table#last-chatpers td,
+.table#last-chatpers th {
+  padding: .5rem;
+  border-top: 1px solid #dee2e6;
+}
+
+.table#last-chatpers thead th {
+  border-bottom: 0;
+}
+
+
+/*
+  Seccion Novelas
+*/
+.text-star {
+  text-align: left;
+}
+
+.hidden-md {
+  display: none;
+}
+
+
+/*
+  Seccion Novelas
+*/
+
+div.card-text {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+div.card-text.list {
+  max-height: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+div.card-text p {
+  margin: 0;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sn-new-mark {
+  color: #fff;
+  font-size: 14px;
+  width: auto;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #3083bc 0, #3083bc 100%);
+  border-radius: 0 8px 0 8px;
+  margin-right: 10px;
+  padding: 0 5px 0 5px;
+}
+
+
+.btn-outline-default {
+  color: #3083bc;
+  background-color: transparent;
+  background-image: none;
+  border-color: #3083bc;
+}
+
+.btn-outline-default:hover {
+  color: #fff;
+  background-color: #3083bc;
+  border-color: #3083bc;
+}
+
+.card .card-footer div.col-6 div {
+  float: left;
+}
+
+.card .card-footer div.col-6 small.spr::before {
+  content: "|";
+  margin: 0 10px 0 10px;
+}
+
+
+/*Seccion Capitulo*/
+
+body,
+html {
+  height: 100%;
+}
+
+@media (min-width: 992px) {
+  .row-12 {
+      height: 100%;
+  }
+
+  .right-op-menu {
+      width: 50px !important;
+      right: 0 !important;
+      left: auto !important;
+  }
+
+  /*
+      Seccion Novelas
+  */
+  .text-star {
+      text-align: right;
+  }
+
+  .hidden-lg {
+      display: none;
+  }
+
+  .hidden-md {
+      display: block;
+  }
+}
+
+@media (max-width: 992px) {
+  body #carouselExampleIndicators .bottom-bg {
+      display: none;
+  }
+
+  #carouselExampleIndicators .carousel-indicators {
+      margin-right: 0;
+      margin-left: 0;
+      margin-bottom: 0px;
+      z-index: 999;
+  }
+
+}
+
+.card-img {
+  max-width: 300px !important;
+}
+
+@media (max-width: 480px) {
+  .d-only-sm {
+      display: block;
+  }
+}
+
+.d-only-sm {
+  display: none;
+}

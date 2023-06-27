@@ -3,6 +3,7 @@ export default interface IChapter {
   novel_id?: any | null,
   author_id?: any | null,
   datetime?: string,
+  language?: string,
   title?: string,
   content?: string,
 }

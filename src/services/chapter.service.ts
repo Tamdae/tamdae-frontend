@@ -2,7 +2,7 @@ import axios from 'axios';
 import authHeader from './auth-header';
 import AuthService from "./auth.service";
 
-const API_URL = 'http://localhost:8000/';
+const API_URL = 'http://localhost:8001/';
 
 class ChapterService {
   getChaptersContent() {
@@ -11,7 +11,7 @@ class ChapterService {
 
   create_chapter(title: string, content: string, novel_id: any) {
     const currentUser = AuthService.getCurrentUser();
-    return axios.post(API_URL + "chapter", {
+    return axios.post(API_URL + "chapter/"+novel_id.$oid, {
       headers: {
         'content-type': 'application/json'
       },
@@ -23,8 +23,18 @@ class ChapterService {
     });
   }
 
-  async get_novel_chapters(id: any) {
-    const response = axios.get(API_URL + "novel/"+id+"/chapters", {
+  async get_novel_chapters(novel_id: any) {
+    const response = axios.get(API_URL + "novel/"+novel_id+"/chapters", {
+      headers: {
+        'content-type': 'application/json'
+      },
+    });
+    // return it
+    return response
+  }
+
+  async get_novel_chapter(novel_id: any, id: any) {
+    const response = axios.get(API_URL + "novel/"+novel_id+"/chapter/"+id, {
       headers: {
         'content-type': 'application/json'
       },

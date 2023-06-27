@@ -9,11 +9,11 @@ import Novels from "./components/Novels/novels.component";
 import Profile from "./components/Profile/profile.component";
 import Navigation from "./components/Navigation/navigation.component";
 import NotFound from "./components/NotFound/404.component";
-import BoardNovels from "./components/Board/User/novels.component";
-import BoardModerator from "./components/Board/moderator.component";
-import BoardAdmin from "./components/Board/admin.component";
+import BoardNovels from "./components/Board/Novels/novels.component";
 import { Novel } from "./components/Novel/novel.component";
-import { BoardNovel } from "./components/Board/User/novel.component";
+import { BoardNovel } from "./components/Board/Novel/novel.component";
+import { BoardChapter } from "./components/Board/Chapter/chapter.component";
+import { Chapter } from "./components/Chapter/chapter.component";
 
 
 
@@ -25,16 +25,25 @@ class App extends Component {
         <div className="container mt-3">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
+            {/* Novels Page */}
             <Route path="/novels" element={<Novels />} />
-            <Route path="/novel/:slug/edit" element={<BoardNovel />} />
+            {/* Novel Page */}
             <Route path="/novel/:slug" element={<Novel />} />
+            {/* Edit Novel Page */}
+            <Route path="/novel/:slug/edit" element={<BoardNovel />} />
+            {/* New Novel Page */}
+            <Route path="/novel/new" element={<BoardNovel />} />
+            {/* Chapter Page */}
+            <Route path="/novel/:slug/:chapterid" element={<Chapter />} />
+            {/* Edit Novel Page */}
+            <Route path="/novel/:slug/:chapterid/edit" element={<BoardChapter />} />
+            {/* New Novel Page */}
+            <Route path="/novel/:slug/new" element={<BoardChapter />} />
+            {/* Novel */}
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/my/novels" element={<BoardNovels />} />
-            <Route path="/mod" element={<BoardModerator />} />
-            <Route path="/admin" element={<BoardAdmin />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

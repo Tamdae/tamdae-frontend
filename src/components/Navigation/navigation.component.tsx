@@ -1,16 +1,14 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
 import AuthService from "../../services/auth.service";
 import IUser from '../../types/user.type';
 import EventBus from "../../common/EventBus";
-import { Nav, Navbar, NavLink } from "react-bootstrap";
 
 type Props = {};
 
 type State = {
-  showModeratorBoard: boolean,
-  showAdminBoard: boolean,
+  isModerator: boolean,
+  isAdmin: boolean,
   currentUser: IUser | undefined
 }
 
@@ -20,8 +18,8 @@ class Navigation extends Component<Props, State> {
     this.logOut = this.logOut.bind(this);
 
     this.state = {
-      showModeratorBoard: false,
-      showAdminBoard: false,
+      isModerator: false,
+      isAdmin: false,
       currentUser: undefined,
     };
   }
@@ -32,8 +30,8 @@ class Navigation extends Component<Props, State> {
     if (user) {
       this.setState({
         currentUser: user,
-        showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
-        showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+        isModerator: user.roles.includes("ROLE_MODERATOR"),
+        isAdmin: user.roles.includes("ROLE_ADMIN"),
       });
     }
 
@@ -47,41 +45,46 @@ class Navigation extends Component<Props, State> {
   logOut() {
     AuthService.logout();
     this.setState({
-      showModeratorBoard: false,
-      showAdminBoard: false,
+      isModerator: false,
+      isAdmin: false,
       currentUser: undefined,
     });
   }
 
   render() {
-    const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
+    const { currentUser, isModerator: isModerator, isAdmin: isAdmin } = this.state;
     return (
-      <Navbar fixed="top" collapseOnSelect expand="sm" bg="dark" variant="dark">
-        <Link to={"/"} className="navbar-brand">
-          Tamdae
-        </Link>
-        <Navbar.Toggle aria-controls="navbarScroll" data-bs-toggle="collapse" data-bs-target="#navbarScroll" />
-        <Navbar.Collapse id="navbarScroll">
-          <Nav className="me-auto my-2 my-lg-0">
-            <NavLink eventKey="1" as={Link} to={"/home"}>Inicio</NavLink>
-            <NavLink eventKey="2" as={Link} to={"/novels"}>Novelas</NavLink>
-          </Nav>
-          {currentUser ? (
-            <Nav className="d-flex">
-              {showModeratorBoard && (<NavLink eventKey="1" as={Link} to={"/mod"}>Moderator Board</NavLink>)}
-              {showAdminBoard && (<NavLink eventKey="2" as={Link} to={"/admin"}>Admin Board</NavLink>)}
-              <NavLink eventKey="3" as={Link} to={"/my/novels"}>User</NavLink>
-              <NavLink eventKey="4" as={Link} to={"/profile"}>{currentUser.username}</NavLink>
-              <NavLink eventKey="5" onClick={this.logOut}>LogOut</NavLink>
-            </Nav>
-          ) : (
-            <Nav className="d-flex">
-              <NavLink eventKey="1" as={Link} to={"/login"}>Login</NavLink>
-              <NavLink eventKey="2" as={Link} to={"/register"}>Sign Up</NavLink>
-            </Nav>
-          )};
-        </Navbar.Collapse>
-      </Navbar >
+      <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <div className="container">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="navbar-brand"><Link to={"/"}>ANovelSite</Link></li>
+          </ul>
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item"><Link className="nav-link" to={"/"}>Inicio</Link></li>
+              <li className="nav-item"><Link className="nav-link" to={"/novels"}>Novelas</Link></li>
+            </ul>
+
+            {currentUser ? (
+              <ul className="navbar-nav my-lg-0">
+                {(isModerator || isAdmin) && (
+                  <li className="nav-item"><Link className="nav-link" to={"/my/novels"}>My Novels</Link></li>
+                )}
+                <li className="nav-item"><Link className="nav-link" to={"/profile"}>{currentUser.username}</Link></li>
+                <li className="nav-item"><span className="nav-link" onClick={this.logOut}>LogOut</span></li>
+              </ul>
+            ) : (
+              <ul className="navbar-nav my-lg-0">
+                <li className="nav-item"><Link className="nav-link" to={"/login"}>Login</Link></li>
+                <li className="nav-item"><Link className="nav-link" to={"/register"}>Sign Up</Link></li>
+              </ul>
+            )}
+          </div>
+        </div>
+      </nav>
     );
   }
 }
