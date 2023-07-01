@@ -1,23 +1,27 @@
 FROM node:latest
 
-# Create app directory
+# Copy the SSH private key to the image
+COPY auth_key /root/.ssh/id_rsa
+RUN chmod 600 /root/.ssh/id_rsa
+
+# Disable strict host key checking
+RUN echo "StrictHostKeyChecking no" >> /root/.ssh/config
+
+# Install git for cloning the project repository
+RUN apt-get update && apt-get install -y git
+
+# Clone the project repository
+RUN git clone git@github.com:Tamdae/tamdae-frontend.git /app
+
+# Set the working directory
 WORKDIR /app
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package*.json ../
-
-# Bundle app source
-COPY . ./
-
 RUN npm install -g serve
-RUN npm install --production
+RUN npm install
 
 # If you are building your code for production
 RUN npm run build
 
-serve -s build
-
-EXPOSE 8000
-CMD [ "serve -s build" ]
+# serve -s build
+EXPOSE 3000
+CMD ["serve", "-s", "build"]
