@@ -13,6 +13,9 @@ RUN apt-get update && apt-get install -y git
 # Clone the project repository
 RUN git clone git@github.com:Tamdae/tamdae-frontend.git /app
 
+ENV AUTH_URL=http://localhost:18100/
+ENV API_URL=http://localhost:18101/
+
 # Set the working directory
 WORKDIR /app
 
