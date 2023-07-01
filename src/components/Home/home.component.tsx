@@ -30,7 +30,8 @@ const Home: React.FC<NovelListProps> = () => {
       <div className="container-fluid">
         <h2 className="section-title text-left">Ultimas Novelas Añadidas</h2>
       </div>
-      {novels.map((novel) => (
+
+      {novels && novels.map((novel) => (
         <div className="col-12 col-md-6" key={novel._id}>
           <div className="card my-2">
             <div className="row no-gutters">

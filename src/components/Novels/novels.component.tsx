@@ -44,7 +44,7 @@ const NovelList: React.FC<NovelListProps> = () => {
             <button className="btn btn-outline-default" type="button">Buscar</button>
           </div>
         </div>
-        {novels.map((novel) => (
+        { novels && novels.map((novel) => (
           <div className="card my-2" key={novel._id}>
             <div className="row no-gutters">
               <div className="col-12 col-sm-3 col-lg-2">
