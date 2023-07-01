@@ -2,21 +2,20 @@ import axios from 'axios';
 import authHeader from './auth-header';
 import AuthService from "./auth.service";
 import slug from 'slug'
-
-const API_URL = 'http://localhost:8001/';
+import { CONFIG } from './config';
 
 class NovelService {
   getNovelsContent() {
-    return axios.get(API_URL + 'novels');
+    return axios.get(CONFIG.API_URL + 'novels');
   }
 
   
   getNovelsBetween() {
-    return axios.get(API_URL + 'novels');
+    return axios.get(CONFIG.API_URL + 'novels');
   }
 
   getLastNovels(number: number) {
-    return axios.post(API_URL + 'novels',{
+    return axios.post(CONFIG.API_URL + 'novels',{
       headers: {
         'content-type': 'application/json'
       },
@@ -28,7 +27,7 @@ class NovelService {
     const currentUser = AuthService.getCurrentUser();
     let title_slug = slug(title);
     const currentDatetime = new Date().toISOString();
-    return axios.post(API_URL + "novel", {
+    return axios.post(CONFIG.API_URL + "novel", {
       headers: {
         'content-type': 'application/json'
       },
@@ -41,7 +40,7 @@ class NovelService {
   }
 
   async get_novel(id: any) {
-    const response = axios.get(API_URL + "novel/"+id, {
+    const response = axios.get(CONFIG.API_URL + "novel/"+id, {
       headers: {
         'content-type': 'application/json'
       },
@@ -51,15 +50,15 @@ class NovelService {
   }
 
   getUserBoard() {
-    return axios.get(API_URL + 'user', { headers: authHeader() });
+    return axios.get(CONFIG.API_URL + 'user', { headers: authHeader() });
   }
 
   getModeratorBoard() {
-    return axios.get(API_URL + 'mod', { headers: authHeader() });
+    return axios.get(CONFIG.API_URL + 'mod', { headers: authHeader() });
   }
 
   getAdminBoard() {
-    return axios.get(API_URL + 'admin', { headers: authHeader() });
+    return axios.get(CONFIG.API_URL + 'admin', { headers: authHeader() });
   }
 }
 

@@ -1,13 +1,11 @@
 import axios from "axios";
-
-const API_URL = "http://localhost:8000/api/auth/";
-const API_URL_NEW = "http://localhost:8001/";
+import { CONFIG } from "./config";
 
 class AuthService {
   login(username: string, password: string) {
     return axios
-      .post(API_URL + "signin", {
-        // .post(API_URL_NEW + "login", {
+      .post(CONFIG.AUTH_URL + "signin", {
+        // .post(CONFIG.AUTH_URL_NEW + "login", {
         username,
         password,
         temp_data: ""
@@ -26,7 +24,7 @@ class AuthService {
   }
 
   register(username: string, email: string, password: string) {
-    return axios.post(API_URL + "signup", {
+    return axios.post(CONFIG.AUTH_URL + "signup", {
       username,
       email,
       password
