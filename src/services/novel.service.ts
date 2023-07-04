@@ -6,20 +6,29 @@ import { CONFIG } from './config';
 
 class NovelService {
   getNovelsContent() {
-    return axios.get(CONFIG.API_URL + 'novels');
+    return axios.get(CONFIG.API_URL + 'novels', {
+      headers: {
+        'content-type': 'application/json',
+        'Access-Control-Allow-Origin': 'anovelsite.com', // Replace '*' with the appropriate domain or specify multiple domains
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE', // Specify the HTTP methods allowed by your server
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization', // Specify the allowed request headers
+      }
+    });
   }
 
-  
+
   getNovelsBetween() {
     return axios.get(CONFIG.API_URL + 'novels');
   }
 
   getLastNovels(number: number) {
-    return axios.post(CONFIG.API_URL + 'novels',{
+    return axios.post(CONFIG.API_URL + 'novels', {
       headers: {
-        'content-type': 'application/json'
-      },
-      number: number
+        'content-type': 'application/json',
+        'Access-Control-Allow-Origin': 'anovelsite.com', // Replace '*' with the appropriate domain or specify multiple domains
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE', // Specify the HTTP methods allowed by your server
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization', // Specify the allowed request headers
+      }
     });
   }
 
@@ -29,7 +38,10 @@ class NovelService {
     const currentDatetime = new Date().toISOString();
     return axios.post(CONFIG.API_URL + "novel", {
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'Access-Control-Allow-Origin': 'anovelsite.com', // Replace '*' with the appropriate domain or specify multiple domains
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE', // Specify the HTTP methods allowed by your server
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization', // Specify the allowed request headers
       },
       author_id: currentUser.id,
       datetime: currentDatetime,
@@ -40,7 +52,7 @@ class NovelService {
   }
 
   async get_novel(id: any) {
-    const response = axios.get(CONFIG.API_URL + "novel/"+id, {
+    const response = axios.get(CONFIG.API_URL + "novel/" + id, {
       headers: {
         'content-type': 'application/json'
       },
